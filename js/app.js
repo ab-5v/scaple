@@ -4,8 +4,14 @@ Scaple = {
     collections: {}
 };
 
-require('./component/player.js')
+// libs
+require('./lib/jquery-ui/jquery-ui-1.9.0.custom.js');
 
+// components
+require('./component/player.js');
+require('./component/autocomplete-render.js');
+
+// bones
 require('./model/playlist.js');
 require('./view/playlist.js');
 require('./view/app.js');
