@@ -1,0 +1,22 @@
+{
+    "name": "scaple",
+    "version": "0.0.1",
+    "description": "Playlist app for soundcloud",
+    "keywords": [ "music" ],
+    "author": {
+        "name": "Artur Burtsev",
+        "email": "artjock@gmail.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/artjock/scaple.git"
+    },
+    "engines": {
+        "node": "*"
+    },
+    "devDependencies": {
+        "mocha": "*",
+        "expect.js": "*"
+    },
+    "private": true
+}
