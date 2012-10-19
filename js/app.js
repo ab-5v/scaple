@@ -3,6 +3,12 @@ $(function() {
     // Models
     window.mPlaylist = Backbone.Model.extend({});
 
+    // Collections
+    window.mPlaylists = Backbone.Collection.extend({
+        model: mPlaylist,
+        url: "./test/mock/playlists.json"
+    });
+
     // Views
     window.vPlaylist = Backbone.View.extend({
 
