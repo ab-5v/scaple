@@ -52,6 +52,8 @@ $(function() {
         }
     });
 
+    window.playlists = new mPlaylists();
+
     // Router
     window.rApp = Backbone.Router.extend({
         routes: {
@@ -59,16 +61,22 @@ $(function() {
         },
 
         initialize: function() {
+            this.$root = $('#app');
+            this.app = new vApp({
+                collection: window.playlists
+            });
         },
 
         home: function() {
+            console.log(this.$root);
+            this.$root.empty();
+            this.$root.append(this.app.render().$el);
         }
     });
 
     // App init
+    playlists.fetch();
     window.App = new rApp();
-    Backbone.history.start({
-        pushState: true
-    });
+    Backbone.history.start();
 
 });
