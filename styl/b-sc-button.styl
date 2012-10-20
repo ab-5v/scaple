@@ -20,12 +20,24 @@
   position: absolute;
 
 .b-sc-button_play::before
-  width: (sc-button-size/2.5);
-  height: (sc-button-size/2.5);
-  left: (sc-button-size/3.3);
-  top: (sc-button-size/3.3);
+  width: 0px;
+  height: 0px;
+  left: (sc-button-size/2.85);
+  top: (sc-button-size/4);
 
-  background-color: #FFF;
+  border-top: (sc-button-size/4) solid transparent;
+  border-left: (sc-button-size/2.66) solid #FFF;
+  border-bottom: (sc-button-size/4) solid transparent;
+
+.b-sc-button_play::after
+  width: sc-button-size;
+  height: sc-button-size;
+  background: inherit;
+  left: -(sc-button-size/1.74);
+  top: 0;
+  border-radius: (sc-button-size/2);
+  clip: rect((sc-button-size/4), (sc-button-size/1), (sc-button-size/1.33), (sc-button-size/1.33));
+
 
 .b-sc-button_pause::before
 .b-sc-button_pause::after
@@ -39,3 +51,11 @@
 
 .b-sc-button_pause::after
   right: (sc-button-size/2.85);
+
+.b-sc-button_stop::before
+  width: (sc-button-size/2.5);
+  height: (sc-button-size/2.5);
+  left: (sc-button-size/3.3);
+  top: (sc-button-size/3.3);
+
+  background-color: #FFF;
