@@ -6,7 +6,13 @@
 <span class="b-playlist__description">{{description}}</span>
 <ol class="b-playlist__tracks">
     {{#each tracks}}
-    <li class="b-track">{{this.title}}</li>
+    <li class="b-track">
+        {{#if this.artwork_url}}
+        <img class="b-track__artwork" src="{{this.artwork_url}}"/>
+        {{/if}}
+        <span class="b-track__author">{{this.user.username}}</span>
+        <span class="b-track__title">{{this.title}}</span>
+    </li>
     {{/each}}
 </ol>
 {{! </div> }}
