@@ -21,6 +21,10 @@ Scaple.views.App = Backbone.View.extend({
         var $playlists = this.$el.find('.b-app__playlists');
         // create playlist view for each model in collection
         this.collection.each(this.playlistDraw);
+
+        // insert bookmarklet
+        this.$el.find('.b-input_bookmarklet').val(Scaple.bookmarklet);
+
         return this;
     },
 
