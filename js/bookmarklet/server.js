@@ -13,6 +13,7 @@
             localStorage.setItem('scape-tr', JSON.stringify(current));
         }
         // trigger onload to tell iframe "it's time to remove"
+        // TODO: better way to trigget onload
         window.onload();
     }
 })(document);
