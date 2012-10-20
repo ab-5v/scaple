@@ -18,6 +18,7 @@
         "mocha": "*",
         "expect.js": "*",
         "stylus": "*",
+        "handlebars": "*",
         "requirer": "0.0.1"
     },
     "private": true

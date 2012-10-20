@@ -6,7 +6,7 @@ Scaple.views.Playlist = Backbone.View.extend({
 
     tagName: 'div',
     className: 'b-playlist',
-    template: _.template($("#playlist-template").html()),
+    template: Scaple.T('b-playlist'),
 
     initialize: function() {
         _.bindAll(this, 'render', 'trackAdd', 'ontracksearch', 'ontrackselected');

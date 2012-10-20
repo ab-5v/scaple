@@ -1,0 +1,12 @@
+{{! <div class="b-playlist"> }}
+<form class="b-track-form">
+    <label>Search <input class="b-input b-input_search" name="search" type="search"/></label>
+</form>
+<span class="b-playlist__title">{{title}}</span>
+<span class="b-playlist__description">{{description}}</span>
+<ol class="b-playlist__tracks">
+    {{#each tracks}}
+    <li class="b-track">{{this.title}}</li>
+    {{/each}}
+</ol>
+{{! </div> }}

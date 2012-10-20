@@ -12,37 +12,6 @@
     <script src="//connect.soundcloud.com/sdk.js" type="text/javascript"></script>
 </head>
 <body class="b-page">
-
-    <!-- Templates -->
-
-    <!-- <div class="b-app"> -->
-    <script type="text/template" id="app-template">
-        <div class="b-app__playlists"></div>
-        <form class="b-playlist-form">
-            <label>Title <input name="title" type="text"/></label>
-            <label>Description <input name="description" type="text"/></label>
-            <input type="submit" value="Add"/>
-        </form>
-        <input class="b-input_bookmarklet" type="text"/>
-    </script>
-    <!-- </div> -->
-
-    <!-- <div class="b-playlist"> -->
-    <script type="text/template" id="playlist-template">
-        <form class="b-track-form">
-            <label>Search <input class="b-input b-input_search" name="search" type="search"/></label>
-        </form>
-        <span class="b-playlist__title"><%= title %></span>
-        <span class="b-playlist__description"><%= description %></span>
-        <ol class="b-playlist__tracks">
-            <% _.each(tracks, function(track) { %>
-                <li class="b-track"><%= track.title %></li>
-            <% }); %>
-        </ol>
-    </script>
-    <!-- </div> -->
-
-
     <div id="app"></div>
 
     <script src="./static/app.js" type="text/javascript"></script>
