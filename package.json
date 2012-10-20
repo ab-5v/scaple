@@ -17,6 +17,7 @@
     "devDependencies": {
         "mocha": "*",
         "expect.js": "*",
+        "handlebars": "*",
         "requirer": "0.0.1"
     },
     "private": true

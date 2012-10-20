@@ -1,0 +1,1 @@
+<html><body>You are being <a href="http://cloud.github.com/downloads/wycats/handlebars.js/handlebars.runtime-1.0.rc.1.js">redirected</a>.</body></html>
