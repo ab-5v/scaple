@@ -1,3 +1,12 @@
-all:
+NBIN=./node_modules/.bin
+
+all: js styl
+
+js:
 	mkdir -p static
-	./node_modules/.bin/requirer js/app.js static/app.js
+	$(NBIN)/requirer js/app.js static/app.js
+
+styl:
+	$(NBIN)/stylus -I styl < styl/app.styl > static/app.css
+
+.PHONY: js styl
