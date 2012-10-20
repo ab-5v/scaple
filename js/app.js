@@ -1,3 +1,4 @@
+
 Scaple = {
     models: {},
     views: {},
@@ -7,6 +8,14 @@ Scaple = {
 Scaple.bookmarklet = require('./bookmarklet/client.js');
 
 // libs
+require('./lib/handlebars/handlebars.runtime.js');
+require('./tpl/templates.hbs.js');
+Scaple.T = function(name) {
+    return function(data) {
+        return Handlebars.templates[name + '.hbs'](data || {});
+    }
+};
+
 require('./lib/jquery-ui/jquery-ui-1.9.0.custom.js');
 
 // components

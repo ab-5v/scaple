@@ -7,6 +7,7 @@ js: tpl
 	$(NBIN)/requirer js/app.js static/app.js
 
 tpl:
-	$(NBIN)/handlebars tpl/*.handlebars -f js/tpl/templates.hbs.js -k each -m
+	mkdir -p js/tpl
+	$(NBIN)/handlebars tpl/*.hbs -f js/tpl/templates.hbs.js -k each -m
 
 .PHONY: tpl js

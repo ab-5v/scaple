@@ -6,7 +6,7 @@ Scaple.views.App = Backbone.View.extend({
 
     tagName: 'div',
     className: 'b-app',
-    template: _.template($("#app-template").html()),
+    template: Scaple.T('b-app'),
 
     initialize: function() {
         _.bindAll(this, 'render', 'playlistDraw');
@@ -16,7 +16,7 @@ Scaple.views.App = Backbone.View.extend({
     },
 
     render: function() {
-        this.$el.html( this.template({}) );
+        this.$el.html( this.template() );
         // container for all playlists
         var $playlists = this.$el.find('.b-app__playlists');
         // create playlist view for each model in collection
