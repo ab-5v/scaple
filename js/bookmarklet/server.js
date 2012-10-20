@@ -10,7 +10,7 @@
         if (current.indexOf('"' + url + '"') === -1) {
             current = JSON.parse(current);
             current.push(url);
-            localStorage.setItem('scape-tr', JSON.stringify(current));
+            localStorage.setItem('scaple-tr', JSON.stringify(current));
         }
         // trigger onload to tell iframe "it's time to remove"
         // TODO: better way to trigget onload
