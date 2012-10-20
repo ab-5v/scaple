@@ -77,5 +77,6 @@ Scaple.views.Playlist = Backbone.View.extend({
         var tracks = this.model.get('tracks').slice();
         tracks.push(track);
         this.model.set('tracks', tracks);
+        this.model.save();
     }
 });
