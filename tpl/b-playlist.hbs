@@ -8,7 +8,11 @@
         {{#each tracks}}
         <li class="b-track">
             {{#if this.artwork_url}}
-            <img class="b-track__artwork" src="{{this.artwork_url}}"/>
+            <span class="b-track__artwork">
+              <img class="b-track__artwork__pic" src="{{this.artwork_url}}"/>
+              <span class="b-sc-button b-sc-button_play"></span>
+              <span class="b-sc-button b-sc-button_pause"></span>
+            </span>
             {{/if}}
             <span class="b-track__author">{{this.user.username}}</span>
             <span class="b-track__title">{{this.title}}</span>
