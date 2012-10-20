@@ -1,8 +1,23 @@
 .b-app
-  margin: 10px auto;
+  margin: 10px;
   width: playlist-width;
 
   background-color: bg-prim-color;
+
+  box-shadow: 0 0 1px rgba(0, 0, 0, .9);
+
+  .b-app__title
+    height: 32px;
+    line-height: 32px;
+
+    text-align: center;
+    color: #111;
+    font-weight: bold;
+    font-size: base-font-size*1.1;
+
+    background: linear-gradient(top, #3a3a3a, #212121);
+    border-bottom: 1px solid border-bottom-color;
+    text-shadow: 0 0 1px rgba(255, 255, 255, .2);
 
   .b-app__selector
     background: linear-gradient(top, #3a3a3a, #212121);
