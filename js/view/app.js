@@ -56,6 +56,8 @@ Scaple.views.App = Backbone.View.extend({
         });
 
         this.collection.add(playlist);
+
+        playlist.save();
     }
 });
 
