@@ -1,7 +1,8 @@
 Scaple.views.App = Backbone.View.extend({
 
     events: {
-        'submit .b-playlist-form': 'playlistAdd'
+        'submit .b-playlist-form': 'playlistAdd',
+        'click .js-playlist-selector': 'playlistSelect'
     },
 
     tagName: 'div',
@@ -17,6 +18,9 @@ Scaple.views.App = Backbone.View.extend({
     initialize: function() {
         _.bindAll(this, 'render', 'playlistDraw');
 
+        // collection for all playlists subviews
+        this.views = [];
+
         this.collection.bind('reset', this.render);
         this.collection.bind('add', this.playlistDraw);
     },
@@ -27,7 +31,7 @@ Scaple.views.App = Backbone.View.extend({
 
         this.$el.html( this.template({playlists: playlists}) );
         // container for all playlists
-        var $playlists = this.$el.find('.js-app-playlists');
+        this.$playlists = this.$el.find('.js-app-playlists');
         // create playlist view for each model in collection
         this.collection.each(this.playlistDraw);
 
@@ -46,7 +50,13 @@ Scaple.views.App = Backbone.View.extend({
         var $container = this.$el.find('.b-app__playlists');
         var view = new Scaple.views.Playlist({model: playlist});
 
+        // save view to a collection
+        this.views.push(view);
+
+        // append view to dom
         $container.append( view.render().$el );
+
+        // TODO: update dots
     },
 
     /**
@@ -71,6 +81,28 @@ Scaple.views.App = Backbone.View.extend({
         this.collection.add(playlist);
 
         playlist.save();
+    },
+
+    /**
+     * Finds which playlist need to show
+     * @param {Event} e
+     */
+    playlistSelect: function(e) {
+        var selectedClass = 'b-playlist-selector__item_selected';
+        var $dots = this.$el.find('.js-playlist-selector');
+        var index = $.inArray(e.currentTarget, $dots.get());
+
+        // already selected
+        if ($dots.eq(index).hasClass(selectedClass)) {
+            return;
+        }
+
+        // slide playlists
+        this.$playlists.css('margin-left', (-index * this.plWidth) + 'px');
+
+        // update dots
+        $dots.removeClass(selectedClass);
+        $dots.eq(index).addClass(selectedClass);
     }
 });
 
