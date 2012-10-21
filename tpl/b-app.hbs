@@ -1,26 +1,28 @@
 {{! <div class="b-app"> }}
 <div class="b-app__title">Scaple</div>
 <div class="b-track-form">
-    <div class="b-input b-input_search">
+    <div class="b-input b-input_search b-input_100">
         <input class="b-input__text" placeholder="Add track" name="search" type="text"/>
     </div>
 </div>
 <div class="b-app__playlists js-app-playlists"></div>
 
 <div class="b-app__selector">
-    <form class="b-playlist-form">
+    <form class="b-playlist-form js-playlist-form">
         <div class="b-playlist-form__fields">
-            <div class="b-input">
+            <div class="b-input b-input_100">
                 <input class="b-input__text" name="title" type="text" placeholder="Title"/>
             </div>
-            <div class="b-input">
+            <div class="b-input b-input_100">
                 <textarea class="b-input__area" name="description" placeholder="Description"></textarea>
             </div>
-            <input type="submit" value="Add"/>
+            <div class="b-input">
+                <button class="b-input__button" type="submit">Add</button>
+            </div>
         </div>
-        <div title="Add playlist" class="b-playlist-form__button">+</div>
+        <div title="Add playlist" class="b-playlist-form__button js-playlist-add">+</div>
     </form>
-    <ul class="b-playlist-selector">
+    <ul class="b-playlist-selector js-playlist-selector-root">
         {{#each playlists}}
         <li title="{{this}}" class="b-playlist-selector__item js-playlist-selector">{{this}}</li>
         {{/each}}
