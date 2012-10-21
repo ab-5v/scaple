@@ -1,0 +1,13 @@
+<ul class="b-autocomplete">
+    {{#each this}}
+    <li class="b-autocomplete__item js-autocomplete-item">
+        {{#if this.artwork_url}}
+            <img class="b-track__artwork__pic" src="{{this.artwork_url}}"/>
+        {{/if}}
+        <div class="b-track__name">
+            <span class="b-track__author">{{this.user.username}}</span>
+            <span class="b-track__title">{{this.title}}</span>
+        </div>
+    </li>
+    {{/each}}
+</ul>
