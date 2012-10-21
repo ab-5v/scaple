@@ -1,7 +1,9 @@
 Scaple.views.App = Backbone.View.extend({
 
     events: {
-        'submit .b-playlist-form': 'playlistAdd'
+        'submit .js-playlist-form': 'playlistAdd',
+        'click .js-playlist-selector': 'playlistSelect',
+        'click .js-playlist-add': 'playlistFormToggle'
     },
 
     tagName: 'div',
@@ -16,7 +18,7 @@ Scaple.views.App = Backbone.View.extend({
     },
 
     render: function() {
-        this.$el.html( this.template() );
+        this.$el.html( this.renderHTML() );
         // container for all playlists
         var $playlists = this.$el.find('.b-app__playlists');
         // create playlist view for each model in collection
@@ -26,6 +28,41 @@ Scaple.views.App = Backbone.View.extend({
         this.$el.find('.b-input_bookmarklet').val(Scaple.bookmarklet);
 
         return this;
+    },
+
+    /**
+     * Combines template data and generates HTML
+     */
+    renderHTML: function() {
+        // get playlists titles to draw dots
+        var playlists = this.collection.pluck('title');
+
+        return this.template({playlists: playlists});
+    },
+
+    /**
+     * Visualize selection on dots
+     */
+    updateDots: function() {
+        var selectedClass = 'b-playlist-selector__item_selected';
+
+        // do we need to render new dots
+        if (this.collection.length != this.$dots.length) {
+            // generate new dots
+            // TODO: use partitials
+            var $root = $('<div/>').html( this.renderHTML() );
+
+            this.$el
+                .find('.js-playlist-selector-root')
+                .replaceWith( $root.find('.js-playlist-selector-root') );
+
+            // save new dots
+            this.$dots = this.$el.find('.js-playlist-selector');
+        }
+
+        // update dots
+        this.$dots.removeClass(selectedClass);
+        this.$dots.eq(this.currentView).addClass(selectedClass);
     },
 
     /**
@@ -62,6 +99,43 @@ Scaple.views.App = Backbone.View.extend({
         this.collection.add(playlist);
 
         playlist.save();
+
+        // switch to new playlist
+        this.playlistSelect(this.collection.length - 1);
+    },
+
+    /**
+     * Finds which playlist need to show
+     * @param {Event|Number} e
+     */
+    playlistSelect: function(e) {
+        var index = typeof e == 'number' ? e : $.inArray(e.currentTarget, this.$dots.get());
+
+        // already selected
+        if (this.currentView == index) {
+            return;
+        }
+
+        // slide playlists
+        this.$playlists.css('margin-left', (-index * this.plWidth) + 'px');
+
+        // update current playlist index
+        this.currentView = index;
+
+        this.updateDots();
+
+        // close form if oppened
+        this.playlistFormToggle(false);
+    },
+
+    /**
+     * Show/hide playlist add form
+     * @param {Event|Boolean}
+     */
+    playlistFormToggle: function(e) {
+        this.$el.find('.js-playlist-form')
+            // we can always pass e, because toggle reacts only on boolean
+            .toggleClass('b-playlist-form_shown', e);
     }
 });
 
