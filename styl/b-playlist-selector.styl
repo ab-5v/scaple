@@ -17,7 +17,8 @@
 
     font-size: 0;
     line-height: 32px;
-    background-color: #000;
+    background: bg-prim-color;
+    box-shadow: inset 0 0 4px rgba(0,0,0,.8), 0 0 1px rgba(255, 255, 255, .3);
     border-radius: 6px;
 
     cursor: pointer;
@@ -25,13 +26,14 @@
   .b-playlist-selector__item_selected::before
     content: '';
     position: absolute;
-    top: -12px;
-    left: -2px;
+    z-index: 1;
+    top: -10px;
+    left: -1px;
     width: 0;
     height: 0;
-    border-left: 8px solid transparent;
-    border-top: 10px solid bg-prim-color;
-    border-right: 8px solid transparent;
+    border-left: 7px solid transparent;
+    border-top: 9px solid bg-prim-color;
+    border-right: 7px solid transparent;
 
   .b-playlist-selector__item_selected::after
     content: '';
@@ -40,6 +42,5 @@
     left: 2px;
     width: 8px;
     height: 8px;
-    background-color: font-sec-color;
+    background: linear-gradient(top, #fa892a, #f93402);
     border-radius: 4px;
-    box-shadow: inset 0 0 3px rgba(0, 0, 0, .5);
