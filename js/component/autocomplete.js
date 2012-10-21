@@ -7,6 +7,8 @@ var KEY = {
     ESC: 27
 };
 
+var namespace = '.ac19';
+
 var defaults = {
 
     /**
@@ -71,7 +73,7 @@ var autocomplte = {
 
         // bind events
         $.each(this.events, function(event, callback) {
-            that.$el.on(event, $.proxy(callback, that));
+            that.$el.on(event + namespace, $.proxy(callback, that));
         });
 
         $.each(this.itemEvents, function(event, callback) {
@@ -108,6 +110,14 @@ var autocomplte = {
                 $( options.template(results, {q: query}) ).appendTo(that.$menu);
                 // cache menu items
                 that.$items = that.$menu.find(options.itemsSelector);
+                // bind global click for closing menu
+                $(window).on('click' + namespace, function(e) {
+                    var $src = $(e.target);
+                    // click outside autocomplete
+                    if (!$src.closest(that.$el)[0] && !$src.closest(that.$menu)[0]) {
+                        that.clear();
+                    }
+                });
             });
         },
 
@@ -222,6 +232,7 @@ var autocomplte = {
         this.activeIndex = -1;
         this.$menu.empty();
         this.$items = null;
+        $(window).off('click' + namespace);
     }
 };
 
