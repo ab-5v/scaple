@@ -3,7 +3,8 @@ Scaple.views.App = Backbone.View.extend({
     events: {
         'submit .js-playlist-form': 'playlistAdd',
         'click .js-playlist-selector': 'playlistSelect',
-        'click .js-playlist-add': 'playlistFormToggle'
+        'click .js-playlist-add': 'playlistFormToggle',
+        'click .js-playlist-remove': 'playlistRemove'
     },
 
     tagName: 'div',
@@ -122,6 +123,22 @@ Scaple.views.App = Backbone.View.extend({
 
         // switch to new playlist
         this.playlistSelect(this.collection.length - 1);
+    },
+
+    /**
+     * Handle clicks to "remove" button
+     * and removes current playlist
+     */
+    playlistRemove: function(e) {
+        // remove current playlist if it isn't last
+        if (this.collection.length > 1) {
+            // remove current playlist
+            this.collection.at(this.currentView).destroy();
+            // remove from views cache
+            this.views.splice(this.currentView, 1);
+            // switch to the firts playlist
+            this.playlistSelect(0);
+        }
     },
 
     /**

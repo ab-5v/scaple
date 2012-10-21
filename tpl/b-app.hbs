@@ -8,6 +8,7 @@
 <div class="b-app__playlists js-app-playlists"></div>
 
 <div class="b-app__selector">
+    <div title="Remove playlist" class="b-toolbar-button js-playlist-remove">×</div>
     <form class="b-playlist-form js-playlist-form">
         <div class="b-playlist-form__fields">
             <div class="b-input b-input_100">
@@ -20,7 +21,7 @@
                 <button class="b-input__button" type="submit">Add</button>
             </div>
         </div>
-        <div title="Add playlist" class="b-playlist-form__button js-playlist-add">+</div>
+        <span title="Add playlist" class="b-toolbar-button js-playlist-add">+</span>
     </form>
     <ul class="b-playlist-selector js-playlist-selector-root">
         {{#each playlists}}
