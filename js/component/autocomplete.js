@@ -73,6 +73,10 @@ var autocomplte = {
         $.each(this.events, function(event, callback) {
             that.$el.on(event, $.proxy(callback, that));
         });
+
+        $.each(this.itemEvents, function(event, callback) {
+            that.$menu.on(event, options.itemsSelector, $.proxy(callback, that));
+        });
     },
 
     /**
@@ -141,6 +145,17 @@ var autocomplte = {
         }
     },
 
+    itemEvents: {
+        'mouseenter': function(e) {
+            this.activeIndex = $.inArray(e.currentTarget, this.$items.get());
+            this.activate();
+        },
+        'mouseleave': function(e) {
+            this.activeIndex = -1;
+            this.activate();
+        }
+    },
+
     moveSelectionUp: function() {
         var last = this.$items.length - 1;
         var index = this.activeIndex;
@@ -175,7 +190,10 @@ var autocomplte = {
         var activeClass = this.options.activeClass;
 
         this.$items.removeClass(activeClass);
-        this.$items.eq(this.activeIndex).addClass(activeClass);
+
+        if (this.activeIndex !== -1) {
+            this.$items.eq(this.activeIndex).addClass(activeClass);
+        }
     },
 
     /**
