@@ -153,6 +153,10 @@ var autocomplte = {
         'mouseleave': function(e) {
             this.activeIndex = -1;
             this.activate();
+        },
+        'click': function(e) {
+            this.activeIndex = $.inArray(e.currentTarget, this.$items.get());
+            this.select();
         }
     },
 
@@ -194,6 +198,21 @@ var autocomplte = {
         if (this.activeIndex !== -1) {
             this.$items.eq(this.activeIndex).addClass(activeClass);
         }
+    },
+
+    /**
+     * Select item and returns data for this item
+     */
+    select: function() {
+        if (this.activeIndex === -1) {
+            return;
+        }
+
+        var data = this.data[this.activeIndex];
+        var value = this.options.onselect(data);
+
+        this.$el.val(value);
+        this.clear();
     },
 
     /**
