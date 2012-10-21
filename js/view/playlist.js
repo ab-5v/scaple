@@ -9,7 +9,7 @@ Scaple.views.Playlist = Backbone.View.extend({
     template: Scaple.T('b-playlist'),
 
     initialize: function() {
-        _.bindAll(this, 'render', 'remove');
+        _.bindAll(this, 'render', 'remove', 'trackAdd');
 
         this.model.on('change', this.render);
         this.model.on('destroy', this.remove);

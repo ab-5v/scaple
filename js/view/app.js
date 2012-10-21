@@ -60,14 +60,18 @@ Scaple.views.App = Backbone.View.extend({
 
 
     initAutocomplete: function() {
+        var that = this;
         this.$search = this.$el.find('.js-track-search');
+
         // bind autocomplete for search input
         this.$search.autocomplete({
             oninput: this.ontracksearch.bind(this),
             template: Scaple.T('b-autocomplete'),
-            appendTo: this.$el.find('.js-track-form')
+            appendTo: this.$el.find('.js-track-form'),
+            onselect: function(track) {
+                that.views[that.currentView].trackAdd(track);
+            }
         });
-        //.on('autocompleteselect', this.ontrackselected.bind(this));
 
     },
 
@@ -96,7 +100,6 @@ Scaple.views.App = Backbone.View.extend({
         setTimeout(function() {
             that.$search.val('');
         }, 1);
-        this.views[this.currentView].trackAdd(data.item);
     },
 
 
