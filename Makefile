@@ -16,7 +16,15 @@ static/app.css: $(STYLS)
 
 js/tpl/templates.hbs.js: $(TPLS)
 	mkdir -p js/tpl
-	$(NBIN)/handlebars tpl/*.hbs -f js/tpl/templates.hbs.js -k each -m
+	mkdir -p tmp
+	cp tpl/* tmp
+	# remove whitespace from templates
+	find tmp -type f | xargs perl -p -i -e 's/\n//g'
+	find tmp -type f | xargs perl -p -i -e 's/>\s*</></g'
+	find tmp -type f | xargs perl -p -i -e 's/>\s*{/>{/g'
+	find tmp -type f | xargs perl -p -i -e 's/}\s*</}</g'
+	$(NBIN)/handlebars tmp/*.hbs -f js/tpl/templates.hbs.js -k each -m
+	rm -rf tmp
 
 node_modules:
 	npm install
