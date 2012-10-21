@@ -16,11 +16,10 @@ Scaple.T = function(name) {
     }
 };
 
-require('./lib/jquery-ui/jquery-ui-1.9.0.custom.js');
 
 // components
+require('./component/autocomplete.js');
 require('./component/player.js');
-require('./component/autocomplete-render.js');
 
 // bones
 require('./model/playlist.js');

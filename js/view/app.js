@@ -26,6 +26,7 @@ Scaple.views.App = Backbone.View.extend({
 
         this.collection.bind('reset', this.render);
         this.collection.bind('add', this.playlistDraw);
+
     },
 
     render: function() {
@@ -42,6 +43,8 @@ Scaple.views.App = Backbone.View.extend({
 
         this.updateDots();
 
+        this.initAutocomplete();
+
         return this;
     },
 
@@ -54,6 +57,48 @@ Scaple.views.App = Backbone.View.extend({
 
         return this.template({playlists: playlists});
     },
+
+
+    initAutocomplete: function() {
+        this.$search = this.$el.find('.js-track-search');
+        // bind autocomplete for search input
+        this.$search.autocomplete({
+            oninput: this.ontracksearch.bind(this),
+            template: Scaple.T('b-autocomplete'),
+            appendTo: this.$el.find('.js-track-form')
+        });
+        //.on('autocompleteselect', this.ontrackselected.bind(this));
+
+    },
+
+    /**
+     * Handles user input in search field
+     * @see http://api.jqueryui.com/autocomplete/#option-source
+     * and sends requests to SC
+     * @see http://developers.soundcloud.com/docs#search
+     * @param {Object} request
+     * @param {Function} response
+     */
+    ontracksearch: function(request, response) {
+        SC.get('/tracks', { q: request.q, limit: 7 }, function(tracks) {
+            response( tracks );
+        });
+    },
+
+    /**
+     * Invokes, when user selects value from autocomplet
+     * @param {Event} e
+     * @param {Object} data
+     */
+    ontrackselected: function(e, data) {
+        var that = this;
+        // clear search input
+        setTimeout(function() {
+            that.$search.val('');
+        }, 1);
+        this.views[this.currentView].trackAdd(data.item);
+    },
+
 
     /**
      * Visualize selection on dots
