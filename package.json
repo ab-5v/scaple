@@ -17,6 +17,8 @@
     "devDependencies": {
         "mocha": "*",
         "expect.js": "*",
+        "stylus": "*",
+        "nib": "*",
         "handlebars": "*",
         "requirer": "0.0.1"
     },

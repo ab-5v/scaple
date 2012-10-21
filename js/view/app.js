@@ -10,8 +10,18 @@ Scaple.views.App = Backbone.View.extend({
     className: 'b-app',
     template: Scaple.T('b-app'),
 
+    /**
+     * Default playlist width
+     * @type Number
+     */
+    plWidth: 300,
+
     initialize: function() {
         _.bindAll(this, 'render', 'playlistDraw');
+
+        // collection for all playlists subviews
+        this.views = [];
+        this.currentView = 0;
 
         this.collection.bind('reset', this.render);
         this.collection.bind('add', this.playlistDraw);
@@ -20,12 +30,16 @@ Scaple.views.App = Backbone.View.extend({
     render: function() {
         this.$el.html( this.renderHTML() );
         // container for all playlists
-        var $playlists = this.$el.find('.b-app__playlists');
+        this.$playlists = this.$el.find('.js-app-playlists');
+        // dots for switching playlists
+        this.$dots = this.$el.find('.js-playlist-selector');
         // create playlist view for each model in collection
         this.collection.each(this.playlistDraw);
 
         // insert bookmarklet
         this.$el.find('.b-input_bookmarklet').val(Scaple.bookmarklet);
+
+        this.updateDots();
 
         return this;
     },
@@ -74,7 +88,13 @@ Scaple.views.App = Backbone.View.extend({
         var $container = this.$el.find('.b-app__playlists');
         var view = new Scaple.views.Playlist({model: playlist});
 
+        // save view to a collection
+        this.views.push(view);
+
+        // append view to dom
         $container.append( view.render().$el );
+
+        // TODO: update dots
     },
 
     /**

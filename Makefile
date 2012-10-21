@@ -1,13 +1,32 @@
 NBIN=./node_modules/.bin
 
-all: js
+JSS:=$(shell find ./js -name '*.js')
+TPLS:=$(shell find ./tpl -name '*.hbs')
+STYLS:=$(shell find ./styl -name '*.styl')
 
-js: tpl
+all: node_modules static/app.js static/app.css
+
+static/app.js: $(JSS) js/tpl/templates.hbs.js
 	mkdir -p static
 	$(NBIN)/requirer js/app.js static/app.js
 
-tpl:
-	mkdir -p js/tpl
-	$(NBIN)/handlebars tpl/*.hbs -f js/tpl/templates.hbs.js -k each -m
+static/app.css: $(STYLS)
+	mkdir -p static
+	$(NBIN)/stylus -I styl < styl/app.styl > static/app.css
 
-.PHONY: tpl js
+js/tpl/templates.hbs.js: $(TPLS)
+	mkdir -p js/tpl
+	mkdir -p tmp
+	cp tpl/* tmp
+	# remove whitespace from templates
+	find tmp -type f | xargs perl -p -i -e 's/\n//g'
+	find tmp -type f | xargs perl -p -i -e 's/>\s*</></g'
+	find tmp -type f | xargs perl -p -i -e 's/>\s*{/>{/g'
+	find tmp -type f | xargs perl -p -i -e 's/}\s*</}</g'
+	$(NBIN)/handlebars tmp/*.hbs -f js/tpl/templates.hbs.js -k each -m
+	rm -rf tmp
+
+node_modules:
+	npm install
+
+.PHONY: npm
