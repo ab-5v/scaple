@@ -20,6 +20,7 @@ Scaple.views.App = Backbone.View.extend({
 
         // collection for all playlists subviews
         this.views = [];
+        this.currentView = 0;
 
         this.collection.bind('reset', this.render);
         this.collection.bind('add', this.playlistDraw);
@@ -32,13 +33,27 @@ Scaple.views.App = Backbone.View.extend({
         this.$el.html( this.template({playlists: playlists}) );
         // container for all playlists
         this.$playlists = this.$el.find('.js-app-playlists');
+        // dots for switching playlists
+        this.$dots = this.$el.find('.js-playlist-selector');
         // create playlist view for each model in collection
         this.collection.each(this.playlistDraw);
 
         // insert bookmarklet
         this.$el.find('.b-input_bookmarklet').val(Scaple.bookmarklet);
 
+        this.updateDots();
+
         return this;
+    },
+
+    /**
+     * Visualize selection on dots
+     */
+    updateDots: function() {
+        var selectedClass = 'b-playlist-selector__item_selected';
+        // update dots
+        this.$dots.removeClass(selectedClass);
+        this.$dots.eq(this.currentView).addClass(selectedClass);
     },
 
     /**
@@ -88,21 +103,20 @@ Scaple.views.App = Backbone.View.extend({
      * @param {Event} e
      */
     playlistSelect: function(e) {
-        var selectedClass = 'b-playlist-selector__item_selected';
-        var $dots = this.$el.find('.js-playlist-selector');
-        var index = $.inArray(e.currentTarget, $dots.get());
+        var index = $.inArray(e.currentTarget, this.$dots.get());
 
         // already selected
-        if ($dots.eq(index).hasClass(selectedClass)) {
+        if (this.currentView == index) {
             return;
         }
 
         // slide playlists
         this.$playlists.css('margin-left', (-index * this.plWidth) + 'px');
 
-        // update dots
-        $dots.removeClass(selectedClass);
-        $dots.eq(index).addClass(selectedClass);
+        // update current playlist index
+        this.currentView = index;
+
+        this.updateDots();
     }
 });
 
