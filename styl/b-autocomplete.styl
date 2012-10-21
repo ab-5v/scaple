@@ -16,7 +16,9 @@
     border-top: 1px solid border-top-color;
     border-bottom: 1px solid border-bottom-color;
 
-    .ui-menu-item-artwork
+    cursor: pointer;
+
+    .b-track__artwork
       width: 20px;
       height: 20px;
 
@@ -24,17 +26,15 @@
 
       margin: 10px 15px;
 
-    .ui-menu-item-author
-      display: none;
-
-
-    .ui-menu-item-title
+    .b-track__name
       display: block;
-      margin-left: 50px;
-
+      margin: 0 10px 0 50px;
+      overflow: ellipsis;
       font-size: (base-font-size/1.2);
       color: font-sec-color;
 
+      .b-track__author::after
+        content: ' — ';
 
-    .ui-corner-all
-      overflow: hidden;
+  .b-autocomplete__item_active
+    background-color:#FFF;
