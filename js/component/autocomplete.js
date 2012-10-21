@@ -41,7 +41,13 @@ var defaults = {
      * Selector for each item in menu
      * @type String
      */
-    itemsClass: '.js-autocomplete-item'
+    itemsSelector: '.js-autocomplete-item',
+
+    /**
+     * Mark active (and hovered) items with this class
+     * @type String
+     */
+    activeClass: 'b-autocomplete__item_active'
 };
 
 var autocomplte = {
@@ -97,7 +103,7 @@ var autocomplte = {
                 // add new items
                 $( options.template(results, {q: query}) ).appendTo(that.$menu);
                 // cache menu items
-                that.$items = that.$el.find(options.itemsClass);
+                that.$items = that.$menu.find(options.itemsSelector);
             });
         },
 
@@ -106,6 +112,10 @@ var autocomplte = {
          * handles keys UP, DOWN, ENTER, ESC
          */
         'keydown': function(e) {
+            // no keys without menu
+            if (!this.$items) {
+                return;
+            }
 
             if ($.inArray(e.which, [KEY.UP, KEY.DOWN, KEY.ENTER, KEY.ESC]) > -1) {
                 e.preventDefault();
@@ -138,7 +148,7 @@ var autocomplte = {
         if (index === -1 || index <= 0) {
             this.activeIndex = last;
         } else {
-            this.activeIndex = index--;
+            this.activeIndex = index-1;
         }
 
         this.activate();
@@ -151,10 +161,21 @@ var autocomplte = {
         if (index === -1 || index >= last) {
             this.activeIndex = 0;
         } else {
-            this.activeIndex = index++;
+            this.activeIndex = index+1;
         }
 
         this.activate();
+    },
+
+    /**
+     * Activate element by activeIndex
+     * and deactivate last active
+     */
+    activate: function() {
+        var activeClass = this.options.activeClass;
+
+        this.$items.removeClass(activeClass);
+        this.$items.eq(this.activeIndex).addClass(activeClass);
     },
 
     /**
