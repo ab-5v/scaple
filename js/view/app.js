@@ -8,6 +8,12 @@ Scaple.views.App = Backbone.View.extend({
     className: 'b-app',
     template: Scaple.T('b-app'),
 
+    /**
+     * Default playlist width
+     * @type Number
+     */
+    plWidth: 300,
+
     initialize: function() {
         _.bindAll(this, 'render', 'playlistDraw');
 
@@ -16,9 +22,12 @@ Scaple.views.App = Backbone.View.extend({
     },
 
     render: function() {
-        this.$el.html( this.template() );
+        // get playlists titles to draw dots
+        var playlists = this.collection.pluck('title');
+
+        this.$el.html( this.template({playlists: playlists}) );
         // container for all playlists
-        var $playlists = this.$el.find('.b-app__playlists');
+        var $playlists = this.$el.find('.js-app-playlists');
         // create playlist view for each model in collection
         this.collection.each(this.playlistDraw);
 
