@@ -4,11 +4,14 @@ JSS:=$(shell find ./js -name '*.js')
 TPLS:=$(shell find ./tpl -name '*.hbs')
 STYLS:=$(shell find ./styl -name '*.styl')
 
-all: node_modules static/app.js static/app.css
+all: node_modules static/app.js static/app.css static/server.js
 
 static/app.js: $(JSS) js/tpl/templates.hbs.js
 	mkdir -p static
 	$(NBIN)/requirer js/app.js static/app.js
+
+static/server.js: js/bookmarklet/server.js
+	cp $< $@
 
 static/app.css: $(STYLS)
 	mkdir -p static
