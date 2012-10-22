@@ -90,20 +90,6 @@ Scaple.views.App = Backbone.View.extend({
     },
 
     /**
-     * Invokes, when user selects value from autocomplet
-     * @param {Event} e
-     * @param {Object} data
-     */
-    ontrackselected: function(e, data) {
-        var that = this;
-        // clear search input
-        setTimeout(function() {
-            that.$search.val('');
-        }, 1);
-    },
-
-
-    /**
      * Visualize selection on dots
      */
     updateDots: function() {
