@@ -18,6 +18,7 @@ Scaple.T = function(name) {
 
 
 // components
+require('./component/events.js');
 require('./component/autocomplete.js');
 require('./component/player.js');
 
