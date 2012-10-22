@@ -15,6 +15,8 @@ Scaple.views.Playlist = Backbone.View.extend({
 
         this.model.on('change', this.render);
         this.model.on('destroy', this.remove);
+
+        Scaple.player.on('finish', this.nextTrack, this);
     },
 
 
@@ -28,10 +30,25 @@ Scaple.views.Playlist = Backbone.View.extend({
     },
 
     /**
-     * Returns track data by event
-     * @param {Event} e
+     * Switch to the next track,
+     * when current one is finished
      */
-    getTrackIndexByEvent: function(e) {
+    nextTrack: function(options) {
+        var that = this;
+        if (options.cid === this.cid && options.index < this.$tracks.length - 1) {
+            this.trackPlay(options.index + 1);
+        }
+    },
+
+    /**
+     * Returns track data by event
+     * @param {Event|Number} e
+     */
+    getTrackIndex: function(e) {
+        // if already index
+        if (typeof e === 'number') {
+            return e;
+        }
         var $track = $(e.target).closest('.js-track');
         // find index of clicked track
         return $.inArray( $track[0], this.$tracks.get() );
@@ -41,16 +58,20 @@ Scaple.views.Playlist = Backbone.View.extend({
      * Start playing track
      */
     trackPlay: function(e) {
-        var index = this.getTrackIndexByEvent(e);
+        var index = this.getTrackIndex(e);
 
         // return track's JSON representation
         var track = this.model.toJSON().tracks[index];
 
         var options = Scaple.player.getOptions();
-        if (options && options.id === track.id && options.cid === this.cid) {
+        if (options
+            && options.id === track.id
+            && options.cid === this.cid
+            && options.index === index) {
+
             Scaple.player.resume();
         } else {
-            Scaple.player.play({id: track.id, cid: this.cid});
+            Scaple.player.play({id: track.id, cid: this.cid, index: index});
         }
 
         // mark track as playing
@@ -71,7 +92,7 @@ Scaple.views.Playlist = Backbone.View.extend({
      * Pause track
      */
     trackPause: function(e) {
-        var index = this.getTrackIndexByEvent(e);
+        var index = this.getTrackIndex(e);
 
         // pause playing
         Scaple.player.pause();
@@ -99,7 +120,7 @@ Scaple.views.Playlist = Backbone.View.extend({
      * @param {Event} e
      */
     trackRemove: function(e) {
-        var index = this.getTrackIndexByEvent(e);
+        var index = this.getTrackIndex(e);
         var tracks = this.model.get('tracks').slice();
         tracks.splice(index, 1);
         this.model.set('tracks', tracks);

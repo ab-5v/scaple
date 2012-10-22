@@ -41,6 +41,8 @@ Scaple.player = $.extend(Scaple.Events, {
             {
                 onfinish: function() {
                     that.trigger('finish', that.getOptions());
+                    this.current = null;
+                    this.options = null;
                 }
             },
             function(sound) {
@@ -77,6 +79,7 @@ Scaple.player = $.extend(Scaple.Events, {
             this.trigger('stop', this.getOptions());
             this.current.stop();
             this.current = null;
+            this.options = null;
         }
     }
 });
