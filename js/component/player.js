@@ -14,34 +14,49 @@ Scaple.player = $.extend(Scaple.Events, {
     current: null,
 
     /**
-     * Link to the playing track JSON
+     * Current oprions
      * @type SCTrack
      */
-    track: null,
+    options: null,
+
+    /**
+     * Options getter
+     * @type Object
+     */
+    getOptions: function() {
+        return this.options;
+    },
 
     /**
      * Plays the track
-     * @param {SCTrack} track
+     * @param {Object} options
      */
-    play: function(track) {
+    play: function(options) {
         var that = this;
 
         this.stop();
 
         SC.stream(
-            '/tracks/' + track.id,
+            '/tracks/' + options.id,
             {
                 onfinish: function() {
-                    that.trigger('finish', {sound: this.current, track: this.track});
+                    that.trigger('finish', that.getOptions());
                 }
             },
             function(sound) {
-                that.track = track;
+                that.options = options;
                 that.current = sound;
-                that.trigger('play', {sound: this.current, track: this.track});
+                that.trigger('play', that.getOptions());
                 that.current.play();
             }
         );
+    },
+
+    resume: function() {
+        if (this.current) {
+            this.trigger('resume', this.getOptions());
+            this.current.resume();
+        }
     },
 
     /**
@@ -49,7 +64,7 @@ Scaple.player = $.extend(Scaple.Events, {
      */
     pause: function() {
         if (this.current) {
-            this.trigger('pause', {sound: this.current, track: this.track});
+            this.trigger('pause', this.getOptions());
             this.current.pause();
         }
     },
@@ -59,7 +74,7 @@ Scaple.player = $.extend(Scaple.Events, {
      */
     stop: function() {
         if (this.current) {
-            this.trigger('stop', {sound: this.current, track: this.track});
+            this.trigger('stop', this.getOptions());
             this.current.stop();
             this.current = null;
         }

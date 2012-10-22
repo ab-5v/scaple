@@ -46,7 +46,12 @@ Scaple.views.Playlist = Backbone.View.extend({
         // return track's JSON representation
         var track = this.model.toJSON().tracks[index];
 
-        Scaple.player.play(track);
+        var options = Scaple.player.getOptions();
+        if (options && options.id === track.id && options.cid === this.cid) {
+            Scaple.player.resume();
+        } else {
+            Scaple.player.play({id: track.id, cid: this.cid});
+        }
 
         // mark track as playing
         this.$tracks.eq(index)
