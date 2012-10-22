@@ -11,7 +11,7 @@
         "type": "git",
         "url": "git://github.com/artjock/scaple.git"
     },
-    "engines": {
+    "kengines": {
         "node": "*"
     },
     "devDependencies": {
@@ -20,7 +20,9 @@
         "stylus": "*",
         "nib": "*",
         "handlebars": "*",
-        "requirer": "0.0.1"
+        "requirer": "0.0.1",
+        "uglify-js": "*",
+        "csso": "*"
     },
     "private": true
 }

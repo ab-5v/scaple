@@ -6,6 +6,11 @@ STYLS:=$(shell find ./styl -name '*.styl')
 
 all: node_modules static/app.js static/app.css static/server.js
 
+prod: static/app.js static/server.js static/app.css
+	$(NBIN)/csso static/app.css static/app.css
+	$(NBIN)/uglifyjs --overwrite static/app.js
+	$(NBIN)/uglifyjs --overwrite static/server.js
+
 static/app.js: $(JSS) js/tpl/templates.hbs.js
 	mkdir -p static
 	$(NBIN)/requirer js/app.js static/app.js
