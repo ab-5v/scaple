@@ -1,4 +1,8 @@
 .b-app
+  position: absolute;
+  top: 0;
+  bottom: 0
+  left: 0;
   width: playlist-width;
   overflow-x: hidden;
 
@@ -7,7 +11,7 @@
   box-shadow: 0 0 1px rgba(0, 0, 0, .9);
 
   .b-app__title
-    height: 32px;
+    height: toolbar-height-normal - 1;
     line-height: 32px;
 
     text-align: center;
@@ -19,12 +23,25 @@
     border-bottom: 1px solid border-bottom-color;
     text-shadow: 0 0 1px rgba(255, 255, 255, .2);
 
+  .b-app__search
+    position: relative;
+    height: toolbar-height-big - 1;
+
+    border-bottom: 1px solid border-bottom-color;
+
   .b-app__playlists
+    position: absolute;
+    top: toolbar-height-big + toolbar-height-normal;
+    bottom: toolbar-height-normal;
     width: 10000px;
-    height: 360px;
     transition: margin-left 0.5s ease
 
+    vertical-align: top;
+
   .b-app__selector
+    position: absolute;
+    bottom: 0;
+    width: 100%;
     background: linear-gradient(top, #3a3a3a, #212121);
 
     .b-toolbar-button
