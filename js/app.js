@@ -8,6 +8,9 @@ Scaple = {
 Scaple.bookmarklet = require('./bookmarklet/client.js');
 
 // libs
+require('./lib/underscore/underscore.js');
+require('./lib/backbone/backbone.js');
+require('./lib/backbone-localstorage/backbone.localStorage.js');
 require('./lib/handlebars/handlebars.runtime.js');
 require('./tpl/templates.hbs.js');
 Scaple.T = function(name) {
