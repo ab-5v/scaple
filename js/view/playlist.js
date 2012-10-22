@@ -1,7 +1,8 @@
 Scaple.views.Playlist = Backbone.View.extend({
 
     events: {
-        'click .b-track': 'ontrackclick',
+        'click .js-track-play': 'trackPlay',
+        'click .js-track-pause': 'trackPause',
         'click .js-track-remove': 'trackRemove'
     },
 
@@ -36,13 +37,43 @@ Scaple.views.Playlist = Backbone.View.extend({
         return $.inArray( $track[0], this.$tracks.get() );
     },
 
-    ontrackclick: function(e) {
+    /**
+     * Start playing track
+     */
+    trackPlay: function(e) {
         var index = this.getTrackIndexByEvent(e);
 
         // return track's JSON representation
         var track = this.model.toJSON().tracks[index];
 
         Scaple.player.play(track);
+
+        // mark track as playing
+        this.$tracks.eq(index)
+            .removeClass('b-track_paused')
+            .addClass('b-track_playing');
+
+        // when another track starts playing
+        Scaple.player.one('stop', function() {
+            this.$tracks.eq(index)
+                .removeClass('b-track_playing')
+                .removeClass('b-track_paused');
+        }, this);
+    },
+
+    /**
+     * Pause track
+     */
+    trackPause: function(e) {
+        var index = this.getTrackIndexByEvent(e);
+
+        // pause playing
+        Scaple.player.pause();
+
+        // mark track as paused
+        this.$tracks.eq(index)
+            .removeClass('b-track_playing')
+            .addClass('b-track_paused');
     },
 
     /**
@@ -67,5 +98,8 @@ Scaple.views.Playlist = Backbone.View.extend({
         tracks.splice(index, 1);
         this.model.set('tracks', tracks);
         this.model.save();
+
+        // stop player if it plays
+        Scaple.player.stop();
     }
 });
