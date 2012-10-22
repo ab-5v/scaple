@@ -4,7 +4,7 @@ JSS:=$(shell find ./js -name '*.js')
 TPLS:=$(shell find ./tpl -name '*.hbs')
 STYLS:=$(shell find ./styl -name '*.styl')
 
-all: node_modules static/app.js static/app.css static/server.js
+all: node_modules .gitmodules static/app.js static/app.css static/server.js
 
 prod: static/app.js static/server.js static/app.css
 	$(NBIN)/csso static/app.css static/app.css
@@ -36,5 +36,8 @@ js/tpl/templates.hbs.js: $(TPLS)
 
 node_modules:
 	npm install
+
+.gitmodules:
+	git submodule update --init
 
 .PHONY: npm
