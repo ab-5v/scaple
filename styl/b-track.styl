@@ -16,11 +16,6 @@
     margin: 10px;
     line-height: 0;
 
-    .b-sc-button
-      display: none;
-      left: 5px;
-      top: -45px;
-
     .b-track__artwork__pic
       width: 50px;
       height: 50px;
@@ -32,7 +27,6 @@
       border: 1px solid border-bottom-color;
       border-radius: 3px;
       box-shadow: 0 0 1px rgba(255, 255, 255, .5);
-
 
   .b-track__author
   .b-track__title
@@ -71,12 +65,17 @@
   .b-track__remove:hover
     color: lighten(font-sec-color, 30%);
 
-.b-track:hover .b-track__artwork .b-sc-button
+  .b-sc-button
+    display: none;
+    left: 5px;
+    top: -45px;
+
+.b-track:hover .b-sc-button_play
 .b-track:hover .b-track__remove
+.b-track_paused .b-sc-button_play
+.b-track_playing .b-sc-button_pause
   display: block;
-.b-track:hover .b-track__artwork .b-sc-button_pause
-  display: none;
-.b-track_current .b-track__artwork .b-sc-button_pause
-  display: block;
-.b-track_current:hover .b-track__artwork .b-sc-button_play
+
+.b-track_paused .b-sc-button.b-sc-button_pause
+.b-track_playing .b-sc-button.b-sc-button_play
   display: none;
