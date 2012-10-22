@@ -7,6 +7,7 @@
     <ol class="b-playlist__tracks__i">
         {{#each tracks}}
         <li class="b-track">
+            <span class="b-track__remove js-track-remove">×</span>
             <span class="b-track__artwork">
                 {{#if this.artwork_url}}
                 <img class="b-track__artwork__pic" src="{{this.artwork_url}}"/>

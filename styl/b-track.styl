@@ -37,7 +37,7 @@
   .b-track__author
   .b-track__title
     display: block;
-    margin-left: 70px;
+    margin: 0 15px 0 70px;
     overflow: ellipsis;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, .4);
 
@@ -47,8 +47,32 @@
     color: font-sec-color;
     font-size: 11px;
 
+  .b-track__remove
+    float: right;
+    display: none;
+    margin: 7px 5px 0 0;
+    width: 16px;
+    height: 16px;
+    line-height: 13px;
+
+    color: font-sec-color;
+    text-align: center;
+    cursor: pointer;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 1);
+    font-weight: bold;
+
+    border: 1px solid border-bottom-color;
+    box-shadow: 0 0 1px rgba(255, 255, 255, .3), inset 0 0 1px rgba(255, 255, 255, .3);
+    border-radius: 10px;
+
+  .b-track__remove:active
+    background-color: rgba(0, 0, 0, .1);
+
+  .b-track__remove:hover
+    color: lighten(font-sec-color, 30%);
 
 .b-track:hover .b-track__artwork .b-sc-button
+.b-track:hover .b-track__remove
   display: block;
 .b-track:hover .b-track__artwork .b-sc-button_pause
   display: none;
