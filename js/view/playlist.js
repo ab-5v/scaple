@@ -54,7 +54,8 @@ Scaple.views.Playlist = Backbone.View.extend({
             .addClass('b-track_playing');
 
         // when another track starts playing
-        Scaple.player.one('stop', function() {
+        // or this track finished
+        Scaple.player.one('stop finish', function() {
             this.$tracks.eq(index)
                 .removeClass('b-track_playing')
                 .removeClass('b-track_paused');

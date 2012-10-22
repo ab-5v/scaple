@@ -14,7 +14,7 @@ Scaple.player = $.extend(Scaple.Events, {
     current: null,
 
     /**
-     * Link to the playing track
+     * Link to the playing track JSON
      * @type SCTrack
      */
     track: null,
@@ -28,12 +28,20 @@ Scaple.player = $.extend(Scaple.Events, {
 
         this.stop();
 
-        SC.stream('/tracks/' + track.id, function(sound){
-            that.track = track;
-            that.current = sound;
-            that.trigger('play', {sound: this.current, track: this.track});
-            that.current.play();
-        });
+        SC.stream(
+            '/tracks/' + track.id,
+            {
+                onfinish: function() {
+                    that.trigger('finish', {sound: this.current, track: this.track});
+                }
+            },
+            function(sound) {
+                that.track = track;
+                that.current = sound;
+                that.trigger('play', {sound: this.current, track: this.track});
+                that.current.play();
+            }
+        );
     },
 
     /**
