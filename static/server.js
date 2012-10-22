@@ -1,0 +1,2 @@
+// processing bookmarklet
+(function(e){var t=document.location.search.match(/tr=([^&]+)/);if(t&&"localStorage"in window){var n=decodeURIComponent(t[1]),r=localStorage.getItem("scaple-tr")||"[]";r.indexOf('"'+n+'"')===-1&&(r=JSON.parse(r),r.push(n),localStorage.setItem("scaple-tr",JSON.stringify(r))),document.write("</head></html><!--")}})(document);
