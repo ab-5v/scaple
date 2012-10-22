@@ -5,10 +5,8 @@ Scaple.Router = Backbone.Router.extend({
 
     initialize: function() {
         this.$root = $('#app');
+
         this.playlists = new Scaple.collections.Playlists();
-        this.app = new Scaple.views.App({
-            collection: this.playlists
-        });
         this.playlists.fetch();
 
         // add default playlist
@@ -16,6 +14,10 @@ Scaple.Router = Backbone.Router.extend({
             this.playlists.add( new Scaple.models.Playlist() );
             this.playlists.at(0).save();
         }
+
+        this.app = new Scaple.views.App({
+            collection: this.playlists
+        });
 
         if ('localStorage' in window) {
             this.initLocalStorage();
