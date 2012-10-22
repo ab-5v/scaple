@@ -182,11 +182,6 @@ Scaple.views.App = Backbone.View.extend({
     playlistSelect: function(e) {
         var index = typeof e == 'number' ? e : $.inArray(e.currentTarget, this.$dots.get());
 
-        // already selected
-        if (this.currentView == index) {
-            return;
-        }
-
         // slide playlists
         this.$playlists.css('margin-left', (-index * this.plWidth) + 'px');
 
