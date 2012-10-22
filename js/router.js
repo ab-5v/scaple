@@ -10,8 +10,11 @@ Scaple.Router = Backbone.Router.extend({
             collection: this.playlists
         });
         this.playlists.fetch();
+
+        // add default playlist
         if (!this.playlists.models.length) {
-            //TODO: add default playlists
+            this.playlists.add( new Scaple.models.Playlist() );
+            this.playlists.at(0).save();
         }
 
         if ('localStorage' in window) {
