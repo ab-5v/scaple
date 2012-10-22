@@ -5,13 +5,19 @@ SC.initialize({
 /**
  * Scaple player
  */
-Scaple.player = {
+Scaple.player = $.extend(Scaple.Events, {
 
     /**
      * The Currently playing track
      * @type SM2Sound
      */
     current: null,
+
+    /**
+     * Link to the playing track
+     * @type SCTrack
+     */
+    track: null,
 
     /**
      * Plays the track
@@ -23,9 +29,21 @@ Scaple.player = {
         this.stop();
 
         SC.stream('/tracks/' + track.id, function(sound){
+            that.track = track;
             that.current = sound;
+            that.trigger('play', {sound: this.current, track: this.track});
             that.current.play();
         });
+    },
+
+    /**
+     * Pause current playing track
+     */
+    pause: function() {
+        if (this.current) {
+            this.trigger('pause', {sound: this.current, track: this.track});
+            this.current.pause();
+        }
     },
 
     /**
@@ -33,8 +51,9 @@ Scaple.player = {
      */
     stop: function() {
         if (this.current) {
+            this.trigger('stop', {sound: this.current, track: this.track});
             this.current.stop();
             this.current = null;
         }
     }
-};
+});
