@@ -40,4 +40,15 @@ node_modules:
 .gitmodules:
 	git submodule update --init
 
-.PHONY: npm
+pages: prod
+	mkdir -p tmp
+	cp static/* tmp/
+	cp index.html tmp/
+	git checkout -fq gh-pages
+	mv tmp/index.html .
+	mv tmp/* static/
+	git commit -am 'pages update'
+	git push
+	git checkout master
+
+.PHONY: npm prod pages
