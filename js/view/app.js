@@ -84,7 +84,7 @@ Scaple.views.App = Backbone.View.extend({
      * @param {Function} response
      */
     ontracksearch: function(request, response) {
-        SC.get('/tracks', { q: request.q, limit: 7 }, function(tracks) {
+        SC.get('/tracks', { q: request.q, limit: 8 }, function(tracks) {
             response( tracks );
         });
     },
