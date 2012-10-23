@@ -35,10 +35,8 @@ js/tpl/templates.hbs.js: $(TPLS)
 	rm -rf tmp
 
 node_modules:
-	npm install
-
-.gitmodules:
 	git submodule update --init
+	npm install
 
 pages: prod
 	mkdir -p tmp
