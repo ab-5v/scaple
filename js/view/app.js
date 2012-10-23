@@ -65,7 +65,7 @@ Scaple.views.App = Backbone.View.extend({
 
         // bind autocomplete for search input
         this.$search.autocomplete({
-            oninput: this.ontracksearch.bind(this),
+            oninput: $.proxy(this.ontracksearch, this),
             template: Scaple.T('b-autocomplete'),
             appendTo: this.$el.find('.js-track-form'),
             onselect: function(track) {
