@@ -20,16 +20,16 @@ Scaple.views.App = Backbone.View.extend({
     initialize: function() {
         _.bindAll(this, 'render', 'playlistDraw');
 
-        // collection for all playlists subviews
-        this.views = [];
-        this.currentView = 0;
-
         this.collection.bind('reset', this.render);
         this.collection.bind('add', this.playlistDraw);
 
     },
 
     render: function() {
+        // collection for all playlists subviews
+        this.views = [];
+        this.currentView = 0;
+
         this.$el.html( this.renderHTML() );
         // container for all playlists
         this.$playlists = this.$el.find('.js-app-playlists');
