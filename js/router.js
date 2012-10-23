@@ -6,22 +6,24 @@ Scaple.Router = Backbone.Router.extend({
     initialize: function() {
         this.$root = $('#app');
 
-        this.playlists = new Scaple.collections.Playlists();
-        this.playlists.fetch();
+        this.collection = new Scaple.collections.Playlists();
+        this.collection.fetch();
 
         // add default playlist
-        if (!this.playlists.models.length) {
-            this.playlists.add( new Scaple.models.Playlist() );
-            this.playlists.at(0).save();
+        if (!this.collection.models.length) {
+            this.collection.add( new Scaple.models.Playlist() );
+            this.collection.at(0).save();
         }
 
         this.app = new Scaple.views.App({
-            collection: this.playlists
+            collection: this.collection
         });
 
         if ('localStorage' in window) {
             this.initLocalStorage();
         }
+
+        this.initHistory();
     },
 
     home: function() {
@@ -48,7 +50,7 @@ Scaple.Router = Backbone.Router.extend({
             SC.get('/tracks', {ids: tracks.join(',')}, function(tracks) {
                 // TODO: find active model
                 // add found tracks to model
-                var activeModel = that.playlists.models[0];
+                var activeModel = that.collection.models[0];
                 var current = activeModel.get('tracks');
                 tracks = current.concat(tracks);
                 activeModel.set('tracks', tracks);
@@ -57,5 +59,33 @@ Scaple.Router = Backbone.Router.extend({
                 localStorage.removeItem('scaple-tr');
             })
         }
+    },
+
+    /**
+     * Init history of changes component
+     */
+    initHistory: function() {
+        var that = this;
+
+        Scaple.History.init({
+            onpush: function() {
+                return that.collection.toJSON();
+            },
+            onpop: function(state) {
+                that.collection.reset(state);
+            }
+        });
+
+        $(window).on('keydown', function(e) {
+            // CTRL+Z
+            if (e.which === 90 && (e.metaKey || e.ctrlKey)) {
+                // check if we are not inside input
+                if ( $(e.target).is(':input') ) {
+                    return;
+                }
+
+                Scaple.History.pop();
+            }
+        })
     }
 });
