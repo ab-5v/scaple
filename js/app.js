@@ -24,6 +24,7 @@ Scaple.T = function(name) {
 require('./component/events.js');
 require('./component/autocomplete.js');
 require('./component/player.js');
+require('./component/history.js');
 
 // bones
 require('./model/playlist.js');
