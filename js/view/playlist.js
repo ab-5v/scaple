@@ -108,7 +108,9 @@ Scaple.views.Playlist = Backbone.View.extend({
      * @param {SCTrack} track
      */
     trackAdd: function(track) {
-        // slice() makes model realy change
+        // save state before track add
+        Scaple.History.push();
+
         var tracks = this.model.get('tracks').slice();
         tracks.push(track);
         this.model.set('tracks', tracks);
@@ -120,6 +122,9 @@ Scaple.views.Playlist = Backbone.View.extend({
      * @param {Event} e
      */
     trackRemove: function(e) {
+        // save state before track remove
+        Scaple.History.push();
+
         var index = this.getTrackIndex(e);
         var tracks = this.model.get('tracks').slice();
         tracks.splice(index, 1);

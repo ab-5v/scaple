@@ -151,6 +151,9 @@ Scaple.views.App = Backbone.View.extend({
             tracks: []
         });
 
+        // save state before playlist adding
+        Scaple.History.push();
+
         this.collection.add(playlist);
 
         playlist.save();
@@ -166,6 +169,8 @@ Scaple.views.App = Backbone.View.extend({
     playlistRemove: function(e) {
         // remove current playlist if it isn't last
         if (this.collection.length > 1) {
+            // save state before playlist removing
+            Scaple.History.push();
             // remove current playlist
             this.collection.at(this.currentView).destroy();
             // remove from views cache
