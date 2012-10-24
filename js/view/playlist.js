@@ -34,7 +34,7 @@ Scaple.views.Playlist = Backbone.View.extend({
         this.$form = this.$el.find('.js-playlist-form');
         this.$form.autoclose(function() {
             that.toggleForm(false);
-        }, '.js-playlist-edit');
+        }, '.js-playlist-form-toggle');
 
         return this;
     },
