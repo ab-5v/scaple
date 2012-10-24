@@ -15,7 +15,7 @@ Scaple.views.App = Backbone.View.extend({
      * Default playlist width
      * @type Number
      */
-    plWidth: 300,
+    plWidth: 320,
 
     initialize: function() {
         _.bindAll(this, 'render', 'playlistDraw');
