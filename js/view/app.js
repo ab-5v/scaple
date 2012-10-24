@@ -4,6 +4,7 @@ Scaple.views.App = Backbone.View.extend({
         'click .js-playlist-selector': 'playlistSelect',
         'click .js-playlist-add': 'playlistAdd',
         'click .js-playlist-form-toggle': 'playlistFormToggle',
+        'click .js-bookmark-form-toggle': 'bookmarkFormToggle',
     },
 
     tagName: 'div',
@@ -37,9 +38,6 @@ Scaple.views.App = Backbone.View.extend({
         // create playlist view for each model in collection
         this.collection.each(this.playlistDraw);
 
-        // insert bookmarklet
-        this.$el.find('.b-input_bookmarklet').val(Scaple.bookmarklet);
-
         this.updateDots();
 
         this.initAutocomplete();
@@ -54,7 +52,7 @@ Scaple.views.App = Backbone.View.extend({
         // get playlists titles to draw dots
         var playlists = this.collection.pluck('title');
 
-        return this.template({playlists: playlists});
+        return this.template({playlists: playlists, bookmark: Scaple.bookmarklet});
     },
 
 
@@ -184,6 +182,10 @@ Scaple.views.App = Backbone.View.extend({
 
     playlistFormToggle: function(e) {
         this.views[this.currentView].toggleForm(e);
+    },
+
+    bookmarkFormToggle: function(e) {
+        this.$el.find('.js-bookmark-form').toggleClass('g-hidden');
     }
 });
 

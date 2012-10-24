@@ -12,8 +12,14 @@
 
 <div class="b-app__playlists js-app-playlists"></div>
 
+<div class="b-bookmark-form js-bookmark-form g-hidden">
+    <span class="b-bookmark-form__title">Add this to your bookmarks</span>
+    <div class="b-input b-input_100">
+        <input class="b-input__text" type="text" value="{{bookmark}}"/>
+    </div>
+</div>
 <div class="b-app__selector">
-    <div title="Remove playlist" class="b-toolbar-button js-playlist-remove">×</div>
+    <div title="Remove playlist" class="b-toolbar-button b-toolbar-button_bookmark js-bookmark-form-toggle">★</div>
     <div title="Add playlist" class="b-toolbar-button b-toolbar-button_info js-playlist-form-toggle">i</div>
     <ul class="b-playlist-selector js-playlist-selector-root">
         {{#each playlists}}
