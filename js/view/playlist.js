@@ -21,10 +21,16 @@ Scaple.views.Playlist = Backbone.View.extend({
 
 
     render: function() {
+        var that = this;
         var content = this.template(this.model.toJSON());
         this.$el.html(content);
         // cache link to all tracks
         this.$tracks = this.$el.find('.js-track');
+
+        this.$form = this.$el.find('.js-playlist-form');
+        this.$form.autoclose(function() {
+            that.toggleForm(false);
+        }, '.js-playlist-edit');
 
         return this;
     },
@@ -141,7 +147,6 @@ Scaple.views.Playlist = Backbone.View.extend({
      */
     toggleForm: function(e) {
         this.$el.find('.js-playlist-form')
-            // we can always pass e, because toggle reacts only on boolean
-            .toggleClass('g-hidden', e);
+            .toggleClass('g-hidden', typeof e === 'boolean' ? !e : undefined);
     }
 });

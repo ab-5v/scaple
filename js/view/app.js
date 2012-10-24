@@ -186,9 +186,6 @@ Scaple.views.App = Backbone.View.extend({
         this.currentView = index;
 
         this.updateDots();
-
-        // close form if oppened
-        this.playlistFormToggle(false);
     },
 
     playlistFormToggle: function(e) {
