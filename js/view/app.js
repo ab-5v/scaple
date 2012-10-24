@@ -4,6 +4,7 @@ Scaple.views.App = Backbone.View.extend({
         'submit .js-playlist-form': 'playlistAdd',
         'click .js-playlist-selector': 'playlistSelect',
         'click .js-playlist-add': 'playlistAdd',
+        'click .js-playlist-edit': 'playlistFormToggle',
         'click .js-playlist-remove': 'playlistRemove'
     },
 
