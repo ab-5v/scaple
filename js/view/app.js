@@ -3,7 +3,7 @@ Scaple.views.App = Backbone.View.extend({
     events: {
         'submit .js-playlist-form': 'playlistAdd',
         'click .js-playlist-selector': 'playlistSelect',
-        'click .js-playlist-add': 'playlistFormToggle',
+        'click .js-playlist-add': 'playlistAdd',
         'click .js-playlist-remove': 'playlistRemove'
     },
 
@@ -140,16 +140,7 @@ Scaple.views.App = Backbone.View.extend({
     playlistAdd: function(e) {
         e.preventDefault();
 
-        var $form = $(e.currentTarget);
-
-        var title = $form.find('input[name=title]').val();
-        var description = $form.find('input[name=description]').val();
-
-        var playlist = new Scaple.models.Playlist({
-            title: title,
-            description: description,
-            tracks: []
-        });
+        var playlist = new Scaple.models.Playlist();
 
         // save state before playlist adding
         Scaple.History.push();
