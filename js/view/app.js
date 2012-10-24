@@ -191,14 +191,8 @@ Scaple.views.App = Backbone.View.extend({
         this.playlistFormToggle(false);
     },
 
-    /**
-     * Show/hide playlist add form
-     * @param {Event|Boolean}
-     */
     playlistFormToggle: function(e) {
-        this.$el.find('.js-playlist-form')
-            // we can always pass e, because toggle reacts only on boolean
-            .toggleClass('b-playlist-form_shown', e);
+        this.views[this.currentView].toggleForm(e);
     }
 });
 

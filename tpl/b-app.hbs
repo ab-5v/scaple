@@ -14,20 +14,7 @@
 
 <div class="b-app__selector">
     <div title="Remove playlist" class="b-toolbar-button js-playlist-remove">×</div>
-    <form class="b-playlist-form js-playlist-form">
-        <div class="b-playlist-form__fields">
-            <div class="b-input b-input_100">
-                <input class="b-input__text" name="title" type="text" placeholder="Title"/>
-            </div>
-            <div class="b-input b-input_100">
-                <textarea class="b-input__area" name="description" placeholder="Description"></textarea>
-            </div>
-            <div class="b-input">
-                <button class="b-input__button" type="submit">Add</button>
-            </div>
-        </div>
-        <span title="Add playlist" class="b-toolbar-button b-toolbar-button_info js-playlist-edit">i</span>
-    </form>
+    <div title="Add playlist" class="b-toolbar-button b-toolbar-button_info js-playlist-edit">i</div>
     <ul class="b-playlist-selector js-playlist-selector-root">
         {{#each playlists}}
         <li title="{{this}}" class="b-playlist-selector__item js-playlist-selector">{{this}}</li>

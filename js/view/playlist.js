@@ -133,5 +133,15 @@ Scaple.views.Playlist = Backbone.View.extend({
 
         // stop player if it plays
         Scaple.player.stop();
+    },
+
+    /**
+     * Show/hide playlist edit form
+     * @param {Event|Boolean}
+     */
+    toggleForm: function(e) {
+        this.$el.find('.js-playlist-form')
+            // we can always pass e, because toggle reacts only on boolean
+            .toggleClass('g-hidden', e);
     }
 });

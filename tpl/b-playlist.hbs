@@ -1,8 +1,16 @@
 {{! <div class="b-playlist"> }}
-<!--
-<span class="b-playlist__title">{{title}}</span>
-<span class="b-playlist__description">{{description}}</span>
--->
+<div class="b-playlist-form js-playlist-form g-hidden">
+    <div class="b-input b-input_100">
+        <input class="b-input__text" name="title" type="text" placeholder="Title" value="{{title}}"/>
+    </div>
+    <div class="b-input b-input_100">
+        <textarea class="b-input__area" name="description" placeholder="Description">{{description}}</textarea>
+    </div>
+    <div class="b-input">
+        <button class="b-input__button js-playlist-edit">Edit</button>
+        <button class="b-input__button js-playlist-remove">Remove</button>
+    </div>
+</div>
 <div class="b-playlist__tracks">
     <ol class="b-playlist__tracks__i">
         {{#each tracks}}
