@@ -1,11 +1,9 @@
 Scaple.views.App = Backbone.View.extend({
 
     events: {
-        'submit .js-playlist-form': 'playlistAdd',
         'click .js-playlist-selector': 'playlistSelect',
         'click .js-playlist-add': 'playlistAdd',
-        'click .js-playlist-edit': 'playlistFormToggle',
-        'click .js-playlist-remove': 'playlistRemove'
+        'click .js-playlist-form-toggle': 'playlistFormToggle',
     },
 
     tagName: 'div',
@@ -122,7 +120,7 @@ Scaple.views.App = Backbone.View.extend({
      */
     playlistDraw: function(playlist) {
         var $container = this.$el.find('.b-app__playlists');
-        var view = new Scaple.views.Playlist({model: playlist});
+        var view = new Scaple.views.Playlist({model: playlist, app: this});
 
         // save view to a collection
         this.views.push(view);
@@ -136,10 +134,8 @@ Scaple.views.App = Backbone.View.extend({
     /**
      * Creates new model for playlist from form
      * and adds it to the collection
-     * @param {Event} e
      */
-    playlistAdd: function(e) {
-        e.preventDefault();
+    playlistAdd: function() {
 
         var playlist = new Scaple.models.Playlist();
 
@@ -155,20 +151,18 @@ Scaple.views.App = Backbone.View.extend({
     },
 
     /**
-     * Handle clicks to "remove" button
-     * and removes current playlist
+     * Handles playlist remove
      */
-    playlistRemove: function(e) {
-        // remove current playlist if it isn't last
-        if (this.collection.length > 1) {
-            // save state before playlist removing
-            Scaple.History.push();
-            // remove current playlist
-            this.collection.at(this.currentView).destroy();
-            // remove from views cache
-            this.views.splice(this.currentView, 1);
-            // switch to the firts playlist
-            this.playlistSelect(0);
+    playlistRemove: function() {
+        // save state before playlist removing
+        Scaple.History.push();
+        // remove current playlist
+        this.collection.at(this.currentView).destroy();
+        // remove from views cache
+        this.views.splice(this.currentView, 1);
+        // always must be at leas one playlist
+        if (!this.collection.length) {
+            this.playlistAdd();
         }
     },
 

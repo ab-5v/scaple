@@ -1,6 +1,8 @@
 Scaple.views.Playlist = Backbone.View.extend({
 
     events: {
+        'click .js-playlist-edit': 'playlistEdit',
+        'click .js-playlist-remove': 'playlistRemove',
         'click .js-track-play': 'trackPlay',
         'click .js-track-pause': 'trackPause',
         'click .js-track-remove': 'trackRemove'
@@ -10,11 +12,13 @@ Scaple.views.Playlist = Backbone.View.extend({
     className: 'b-playlist',
     template: Scaple.T('b-playlist'),
 
-    initialize: function() {
+    initialize: function(options) {
         _.bindAll(this, 'render', 'remove', 'trackAdd');
 
         this.model.on('change', this.render);
         this.model.on('destroy', this.remove);
+
+        this.app = options.app;
 
         Scaple.player.on('finish', this.nextTrack, this);
     },
@@ -139,6 +143,30 @@ Scaple.views.Playlist = Backbone.View.extend({
 
         // stop player if it plays
         Scaple.player.stop();
+    },
+
+    /**
+     * Edit playlist title and description by form
+     * @param {Event} e
+     */
+    playlistEdit: function(e) {
+        this.model.set({
+            title: this.$form.find('input[name=title]').val(),
+            description: this.$form.find('textarea[name=description]').val()
+        });
+
+        this.model.save();
+
+        this.toggleForm(false);
+    },
+
+    /**
+     * Remove playlist
+     * @param {Event} e
+     */
+    playlistRemove: function() {
+        this.$form.autoclose('off');
+        this.app.playlistRemove();
     },
 
     /**
