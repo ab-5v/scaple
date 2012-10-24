@@ -161,6 +161,9 @@ Scaple.views.App = Backbone.View.extend({
         // always must be at leas one playlist
         if (!this.collection.length) {
             this.playlistAdd();
+        } else {
+            // go to first one after removeing
+            this.playlistSelect(0);
         }
     },
 
