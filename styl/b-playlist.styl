@@ -1,16 +1,15 @@
 .b-playlist
   display: inline-block;
+  width: playlist-width;
+  overflow: hidden;
+  height: 100%;
+
+  border-right: 1px solid border-bottom-color;
   vertical-align: top;
 
   .b-playlist__tracks
-    overflow: hidden;
-    width: 300px;
-
-  .b-playlist__tracks__i
-    position: absolute;
-    top: 0;
-    bottom: 0;
+    height: 100%;
     margin: 0;
-    padding: 0 15px 0 0;
-    width: playlist-width;
+    padding: 0 30px 0 0;
+    width: 100%;
     overflow-y: scroll;

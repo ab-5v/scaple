@@ -11,24 +11,22 @@
         <button class="b-input__button js-playlist-remove">Remove</button>
     </div>
 </div>
-<div class="b-playlist__tracks">
-    <ol class="b-playlist__tracks__i">
-        {{#each tracks}}
-        <li class="b-track js-track">
-            <span class="b-track__remove js-track-remove">×</span>
-            <span class="b-track__artwork">
-                {{#if this.artwork_url}}
-                <img class="b-track__artwork__pic" src="{{this.artwork_url}}"/>
-                {{else}}
-                <span class="b-track__artwork__placeholder"></span>
-                {{/if}}
-                <span class="b-sc-button b-sc-button_play js-track-play"></span>
-                <span class="b-sc-button b-sc-button_pause js-track-pause"></span>
-            </span>
-            <span class="b-track__author">{{this.user.username}}</span>
-            <span class="b-track__title">{{this.title}}</span>
-        </li>
-        {{/each}}
-    </ol>
-</div>
+<ol class="b-playlist__tracks">
+    {{#each tracks}}
+    <li class="b-track js-track">
+        <span class="b-track__remove js-track-remove">×</span>
+        <span class="b-track__artwork">
+            {{#if this.artwork_url}}
+            <img class="b-track__artwork__pic" src="{{this.artwork_url}}"/>
+            {{else}}
+            <span class="b-track__artwork__placeholder"></span>
+            {{/if}}
+            <span class="b-sc-button b-sc-button_play js-track-play"></span>
+            <span class="b-sc-button b-sc-button_pause js-track-pause"></span>
+        </span>
+        <span class="b-track__author">{{this.user.username}}</span>
+        <span class="b-track__title">{{this.title}}</span>
+    </li>
+    {{/each}}
+</ol>
 {{! </div> }}
