@@ -44,21 +44,42 @@
 
   .b-track__remove
     float: right;
+    position: relative;
     display: none;
     margin: 7px 5px 0 0;
     width: 16px;
     height: 16px;
     line-height: 13px;
 
-    color: font-sec-color;
-    text-align: center;
     cursor: pointer;
-    text-shadow: 0 0 1px rgba(0, 0, 0, 1);
-    font-weight: bold;
+    font-size: 0;
 
     border: 1px solid border-bottom-color;
     box-shadow: 0 0 1px rgba(255, 255, 255, .3), inset 0 0 1px rgba(255, 255, 255, .3);
     border-radius: 10px;
+
+  .b-track__remove::before
+  .b-track__remove::after
+    content: '';
+    position: absolute;
+
+    top: 4px;
+    left: 7px;
+    width: 2px;
+    height: 8px;
+
+    background: font-sec-color;
+
+    box-shadow: 0 0 6px #000;
+
+    transform: rotate(-45deg);
+
+  .b-track__remove::after
+    top: 7px;
+    left: 4px;
+    width: 8px;
+    height: 2px;
+    box-shadow: none;
 
   .b-track__remove:active
     background-color: rgba(0, 0, 0, .1);
